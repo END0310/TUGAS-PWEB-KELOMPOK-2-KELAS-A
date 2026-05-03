@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Sistem Pengadaan' %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/basecoat.cdn.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/js/all.min.js" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+<header class="bg-white shadow-sm">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+    <h1 class="font-semibold">Pengadaan Barang FTI</h1>
+    <nav class="flex gap-2 items-center">
+      <a href="/pengadaan/dashboard" class="btn btn-outline">Dashboard</a>
+
+      <% if (typeof user !== 'undefined' && user) { %>
+        <% if (user.role === 'ketua_departemen') { %>
+          <a href="/pengadaan/usulan/buat" class="btn btn-outline">+ Usulan</a>
+        <% } %>
+
+        <span class="text-sm text-gray-500"><%= user.nama %></span>
+        <a href="/auth/logout" class="btn btn-outline text-red-500">Logout</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
+<main class="max-w-5xl mx-auto p-4">

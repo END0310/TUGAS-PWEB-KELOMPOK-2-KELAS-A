@@ -1,0 +1,81 @@
+<%- include('../partials/header') %>
+
+<!-- Dashboard Ketua Departemen -->
+<% if (user.role === 'ketua_departemen') { %>
+  <div class="card p-6 mb-4">
+    <div class="flex justify-between mb-4">
+      <h2 class="text-xl font-bold">Usulan Pengadaan Saya</h2>
+      <a href="/pengadaan/usulan/buat" class="btn bg-blue-500 text-white border-none">+ Buat Usulan</a>
+    </div>
+    <table class="table w-full">
+      <thead>
+        <tr><th>Judul</th><th>Status</th><th>Jumlah Item</th><th>Tanggal</th></tr>
+      </thead>
+      <tbody>
+        <% data.usulan.forEach(u => { %>
+          <tr>
+            <td><%= u.judul %></td>
+            <td><%= u.status %></td>
+            <td><%= u.jumlah_item %></td>
+            <td><%= new Date(u.created_at).toLocaleDateString('id-ID') %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<!-- Dashboard Pengelola Aset -->
+<% if (user.role === 'pengelola_aset') { %>
+  <div class="card p-6 mb-4">
+    <h2 class="text-xl font-bold mb-4">Daftar Usulan Masuk</h2>
+    <table class="table w-full">
+      <thead>
+        <tr><th>Judul</th><th>Pengaju</th><th>Status</th><th>Aksi</th></tr>
+      </thead>
+      <tbody>
+        <% data.usulan.forEach(u => { %>
+          <tr>
+            <td><%= u.judul %></td>
+            <td><%= u.nama_pengaju %></td>
+            <td><%= u.status %></td>
+            <td>
+              <% if (u.status === 'diajukan') { %>
+                <form action="/pengadaan/permohonan/buat" method="POST" style="display:inline">
+                  <input type="hidden" name="usulan_id" value="<%= u.id %>">
+                  <button class="btn btn-outline text-sm">Buat Permohonan</button>
+                </form>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<!-- Dashboard Wakil Dekan -->
+<% if (user.role === 'wakil_dekan') { %>
+  <div class="card p-6">
+    <h2 class="text-xl font-bold mb-4">Permohonan Menunggu Keputusan</h2>
+    <table class="table w-full">
+      <thead>
+        <tr><th>Judul</th><th>Dibuat Oleh</th><th>Status</th><th>Aksi</th></tr>
+      </thead>
+      <tbody>
+        <% data.permohonan.forEach(p => { %>
+          <tr>
+            <td><%= p.judul %></td>
+            <td><%= p.dibuat_oleh %></td>
+            <td><%= p.status %></td>
+            <td>
+              <a href="/pengadaan/permohonan/<%= p.id %>/detail" class="btn btn-outline text-sm">Detail</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Pengadaan Barang FTI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/basecoat.cdn.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+  <div class="card p-6 w-full max-w-sm">
+    <h1 class="text-xl font-bold mb-1 text-center">Sistem Pengadaan Barang FTI</h1>
+    <p class="text-sm text-gray-500 text-center mb-4">Silakan login untuk melanjutkan</p>
+
+    <% if (error) { %>
+      <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+        ⚠️ <%= error %>
+      </div>
+    <% } %>
+
+    <form action="/auth/login" method="POST" class="form grid gap-4">
+
+      <div class="grid gap-2">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="email@fti.ac.id"
+          required
+          autofocus>
+      </div>
+
+      <div class="grid gap-2">
+        <label for="password">Password</label>
+        <div style="position: relative;">
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Masukkan password"
+            required
+            style="width: 100%; padding-right: 2.8rem;">
+
+          <button
+            type="button"
+            id="togglePassword"
+            title="Tampilkan/sembunyikan password"
+            style="
+              position: absolute;
+              right: 0.6rem;
+              top: 50%;
+              transform: translateY(-50%);
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0;
+              color: #6b7280;
+            ">
+            <svg id="iconHide" xmlns="http://www.w3.org/2000/svg"
+              width="20" height="20" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88L6.59 6.59m0 0L3 3m3.59 3.59A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+            </svg>
+            <svg id="iconShow" xmlns="http://www.w3.org/2000/svg"
+              width="20" height="20" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+              style="display: none;">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit"
+        class="btn w-full"
+        style="background-color: #3b82f6; color: white; border: none;">
+        Masuk
+      </button>
+    </form>
+
+    <hr class="my-4">
+    <p class="text-xs text-center text-gray-400">
+      Belum punya akun? Hubungi admin untuk mendapatkan akses.
+    </p>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('togglePassword');
+    const inputPwd  = document.getElementById('password');
+    const iconHide  = document.getElementById('iconHide');
+    const iconShow  = document.getElementById('iconShow');
+
+    toggleBtn.addEventListener('click', function () {
+      const isHidden = inputPwd.type === 'password';
+      if (isHidden) {
+        inputPwd.type = 'text';
+        iconHide.style.display = 'none';
+        iconShow.style.display = 'block';
+      } else {
+        inputPwd.type = 'password';
+        iconHide.style.display = 'block';
+        iconShow.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

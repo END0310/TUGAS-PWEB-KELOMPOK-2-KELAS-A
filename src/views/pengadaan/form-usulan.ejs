@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-md mx-auto">
+  <div class="card p-6">
+    <h1 class="text-xl font-bold mb-4 text-center">Buat Usulan Pengadaan</h1>
+
+    <% if (error) { %>
+      <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm"><%= error %></div>
+    <% } %>
+
+    <form action="/pengadaan/usulan/simpan" method="POST" class="form grid gap-4">
+      <div class="grid gap-2">
+        <label>Judul Usulan</label>
+        <input type="text" name="judul" placeholder="Judul usulan pengadaan" required>
+      </div>
+      <div class="grid gap-2">
+        <label>Deskripsi</label>
+        <textarea name="deskripsi" placeholder="Keterangan tambahan" rows="3"></textarea>
+      </div>
+      <hr>
+      <h3 class="font-semibold">Detail Barang</h3>
+      <div class="grid gap-2">
+        <label>Nama Barang</label>
+        <input type="text" name="nama_barang" required>
+      </div>
+      <div class="grid gap-2">
+        <label>Jumlah</label>
+        <input type="number" name="jumlah" value="1" required>
+      </div>
+      <div class="grid gap-2">
+        <label>Satuan</label>
+        <input type="text" name="satuan" placeholder="unit / buah / set">
+      </div>
+      <div class="grid gap-2">
+        <label>Harga Estimasi (Rp)</label>
+        <input type="number" name="harga_estimasi" value="0">
+      </div>
+      <button type="submit" class="btn bg-blue-500 text-white border-none w-full">
+        Simpan Usulan
+      </button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
